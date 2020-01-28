@@ -1,0 +1,36 @@
+<ul class="brands-list">
+  {% capture brandlist %}{% for vendor in shop.vendors %}{{ vendor.first }}, {% endfor %}{% endcapture %}
+  {% assign brands = brandlist | upcase | remove: '@' | remove: '&' | split: ', ' | uniq %}
+  {% for brandletter in brands %}{% assign numbers = forloop.index0 %}
+  <li id="brand-{{numbers}}" class="brand-main" itemprop="brands">
+    <h3>{{brandletter}}</h3>
+    <ul class="vendor-list">{% for vendor in shop.vendors %}{% assign vendorf = vendor.first | upcase %}{% if numbers == 0 %}{% if vendorf == '1' or vendorf == '2' or vendorf == '3' or vendorf == '4' or vendorf == '5' or vendorf == '6' or vendorf == '7' or vendorf == '8' or vendorf == '9' or vendorf == '0' or vendorf == '@' or vendorf == '&' %}
+      <li class="vendor-list-item">{{ vendor | link_to_vendor }}</li>{% endif %}{% else %}{% if vendorf == brandletter %}
+      <li class="vendor-list-item">{{ vendor | link_to_vendor }}</li>{% endif %}{% endif %}{% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+
+<style>
+ul.brands-list, ul.vendor-list {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+}
+ul.brands-list li.brand-main h3 {
+    margin: 20px 0 5px;
+    background: #7ac0c9;
+    color: #fff;
+    padding: 0 10px;
+}
+ul.brands-list {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+li.brand-main {
+    display: inline-block;
+    width: 260px;
+}
+</style>
