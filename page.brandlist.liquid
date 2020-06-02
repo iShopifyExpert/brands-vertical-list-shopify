@@ -1,0 +1,37 @@
+{% assign counter = 0 %}
+{% for vendor in shop.vendors %}
+{% assign counter = counter | plus: 1 %}
+{% endfor %}
+
+{% assign counter_divided_by_3 = counter | divided_by: 3 | floor %}
+<img class="header-image" src="https://cdn.shopify.com/s/files/1/1860/7399/files/shop-by-brand.jpg?4972878591966392835">
+<div id="page" class="brands-page desktop-12 tablet-6 mobile-3" data-section-id="{{ section.id }}">
+
+  {{ page.content }}
+  
+
+<ul class="brand-list">
+  
+<li class="vendor-letter">123</li>
+  {% assign current = "" %}
+  {% for link in linklists.shop-by-brand.links %}
+  {% assign collection = link.object %}
+  {% assign first_letter = collection.title | strip_html | upcase | truncate: 1, '' %}
+
+    {% if first_letter == "1" or first_letter == "2" or first_letter == "3" or first_letter == "4" or first_letter == "5" or first_letter == "6"  or first_letter == "7" or first_letter == "8" or first_letter == "9"%}
+    <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+    {% else %}
+
+
+    
+ {% unless first_letter == current %}
+    <div class="brand-letter"><li class="vendor-letter">{{ first_letter }}</li>
+      {% endunless %}
+      <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+    
+   {% assign current = first_letter %}
+{% endif %}
+          {% endfor %}</div>
+</ul>
+  
+  </div>
